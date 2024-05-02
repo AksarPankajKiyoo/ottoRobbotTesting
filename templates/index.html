@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OTTO ROBOT CONTROL SYSTEM</title>
+</head>
+<body style="background-color:darkgray; display:block;">
+    <h1 style="text-align: center;">OTTO ROBOT CONTROL SYSTEM</h1>
+    <section style="border: 1px solid black; text-align:center;">
+        <h4 style="display: inline; margin-right:200px;">SERVER STATUS:</h4>
+        <h4 style="display: inline; margin-left:200px; margin-right:100px;">Serial Monitor (Arduino):</h4>
+    </section>
+    <section style="text-align:center; margin-top:8%;">
+        <iframe style="background: #ffffff99;" width="500" height="340" src="http://192.168.29.38/homepage"></iframe>
+        <iframe style="background: #111111;" width="480" height="340" src="http://192.168.29.38/serialMonitor"></iframe>    
+        <iframe style="background: #444444;" width="480" height="340" src="http://192.168.29.38/monitor"></iframe>    
+    </section>
+    
+    <!-- <section style="text-align:left; position:relative;">
+        <div style="background: #ffffff; width:460px; height:300px; display:block;">
+            <h2 style="text-align:center; padding-top:6px;">Enter Commands:</h2>
+            <div style="width:82%; height:50px; margin-left:38px; border:1px solid gray; display:flex; justify-content:center;">
+                <input id="inputField" style="width:60%; height:30px; font-size: 16px; margin-right:10px; margin-top:8px; border-radius:5px;" placeholder="Type 'start'/'play', etc.">
+                <button style="height:32px; font-weight:bold; color:#444444; margin-top:8px; margin-right:10px; border-radius:5px;">SEND</button>
+                
+                <div class="mic" id="mic" style="width:10%; height:30px; font-size: 16px; border:2px solid black; margin-top:8px; margin-right:10px; border-radius:5px;" onclick="testFunction('mic')" onmousedown="micPressed()" onmouseup="micReleased()" onmouseleave="resetCount()">
+                    <div style="width:17px; height:10px; background: #444444; border:1px solid black;
+                    border-bottom-left-radius:50%; border-bottom-right-radius:50%; position:relative; top:45%; left:25%;"></div>
+
+                    <div style="width:12px; height:8px; background: #ffffff; border:1px solid white;
+                    border-bottom-left-radius:50%; border-bottom-right-radius:50%; position:relative; top:5%; left:31%;"></div>
+
+                    <div style="width:10px; height:16px; background: #444444; border:1px solid white;
+                    border-radius:35%; position:relative; top:-57%; left:35%;"></div>
+
+                    <div style="width:8px; height:2px; background: #444444; border:1px solid white;
+                    border-radius:35%; position:relative; top:-46%; left:38%;"></div>
+                </div>
+
+            </div>
+
+            <div class="common" style="display:flex; justify-content:space-around;">
+
+                <table class="tbl">
+                    <tr>
+                        <th></th>
+                        <th align="center"><button style="height:55px; font-weight:bold; font-size: 38px; color:#444444" onclick="testFunction('up')" onmouseleave="resetCount()">&#11165;</button></th>
+                        <th></th>
+                    </tr>
+                    <tr>
+                        <th align="center"><button style="height:55px; width:55px; font-weight:bold; font-size: 38px; color:#444444" onclick="testFunction('left')" onmouseleave="resetCount()">&#11164;</button></th>
+                        <th></th>
+                        <th align="center"><button style="height:55px; font-weight:bold; font-size: 38px; color:#444444" onclick="testFunction('right')" onmouseleave="resetCount()">&#11166;</button></th>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <th align="center"><button style="height:55px; font-weight:bold; font-size: 38px; color:#444444" onclick="testFunction('down')" onmouseleave="resetCount()">&#11167;</button></th>
+                        <th></th>
+                    </tr>
+                </table>
+    
+                <table class="tbl">
+                    <tr>
+                        <th align="center"><button style="height:45px; font-weight:bold; font-size: 28px; color:#008080" onclick="testFunction('start')" onmouseleave="resetCount()">START</button></th>
+                    </tr>
+                    <tr>
+                        <th align="center"></th>
+                    </tr>
+                    <tr>
+                        
+                        <th align="center"><button style="height:45px; font-weight:bold; font-size: 38px; color:#C70039 " onclick="testFunction('stop')" onmouseleave="resetCount()">STOP</button></th>
+                        
+                    </tr>
+                </table>
+            </div>
+            <p id="countValue" style="font-size:34px; color:gray; font-weight:bold; position:absolute; top:25%; left:15%; visibility:hidden;">1</p>
+
+        </div>
+    </section> -->
+
+    <!-- <section style="float:right; position:fixed; top:50%; left:40%; ">
+        <div style="background: #ffffff; width:460px; height:300px; display:block;">
+            <h2 style="text-align:center;">TESTING WINDOW</h2>
+            <div style="border:1px dotted gray; width:100%; height:200px;">
+                <p style="padding:10px;" id="printData">Any activity you'll do, will be shown here!!!</p>
+            </div>
+        </div>
+    </section> -->
+
+    <script>
+        var count = 0;
+
+        function resetCount(){
+            count = 0;
+            document.getElementById('countValue').style.visibility = "hidden";
+        }
+
+        function micPressed(){
+            document.getElementById('mic').style.background = "#99999944";
+        }
+
+        function micReleased(){
+            document.getElementById('mic').style.background = "White";
+        }
+        function testFunction(flag){
+            if(flag == 'mic'){
+                count++;
+                //document.getElementById('printData').innerText = "MIC ON!"+" ["+count+"]";
+                document.getElementById('inputField').value = "mic on";
+
+                document.getElementById('countValue').innerText = count;
+                document.getElementById('countValue').style.visibility = "visible";
+            }
+            if(flag == 'up'){
+                count++; 
+                //document.getElementById('printData').innerText = "UP"+" ["+count+"]";
+                document.getElementById('inputField').value = "UP";
+
+                document.getElementById('countValue').innerText = count;
+                document.getElementById('countValue').style.visibility = "visible";
+            }
+            if(flag == 'left'){ 
+                count++;
+                //document.getElementById('printData').innerText = "LEFT"+" ["+count+"]";
+                document.getElementById('inputField').value = "LEFT";
+
+                document.getElementById('countValue').innerText = count;
+                document.getElementById('countValue').style.visibility = "visible";
+            }
+            if(flag == 'right'){ 
+                count++; 
+                //document.getElementById('printData').innerText = "RIGHT"+" ["+count+"]";
+                document.getElementById('inputField').value = "RIGHT";
+
+                document.getElementById('countValue').innerText = count;
+                document.getElementById('countValue').style.visibility = "visible";
+            }
+            if(flag == 'down'){ 
+                count++; 
+                //document.getElementById('printData').innerText = "DOWN"+" ["+count+"]";
+                document.getElementById('inputField').value = "DOWN";
+
+                document.getElementById('countValue').innerText = count;
+                document.getElementById('countValue').style.visibility = "visible";
+            }
+            if(flag == 'start'){ 
+                count++; 
+                //document.getElementById('printData').innerText = "START"+" ["+count+"]";
+                document.getElementById('inputField').value = "START";
+
+                document.getElementById('countValue').innerText = count;
+                document.getElementById('countValue').style.visibility = "visible";
+            }
+            if(flag == 'stop'){ 
+                count++; 
+                //document.getElementById('printData').innerText = "STOP"+" ["+count+"]";
+                document.getElementById('inputField').value = "STOP";
+
+                document.getElementById('countValue').innerText = count;
+                document.getElementById('countValue').style.visibility = "visible";
+            }
+        }
+    </script>
+    
+    
+</body>
+</html>
